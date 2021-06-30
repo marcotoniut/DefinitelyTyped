@@ -124,10 +124,15 @@ export type HostedFieldsFieldDataFields = {
     [key in HostedFieldsHostedFieldsFieldName]: HostedFieldsHostedFieldsFieldData;
 };
 
-export interface HostedFieldsStateObject {
+
+export interface HostedFieldsState {
     cards: HostedFieldsHostedFieldsCard[];
-    emittedBy: HostedFieldsHostedFieldsFieldName;
     fields: HostedFieldsFieldDataFields;
+}
+
+// Proposal for breaking change: Rename the following interface to `HostedFieldsStateEvent`.
+export interface HostedFieldsStateObject extends HostedFieldsState {
+    emittedBy: HostedFieldsHostedFieldsFieldName;
 }
 
 export type HostedFieldEventType = 'blur' | 'focus' | 'empty' | 'notEmpty'
@@ -356,7 +361,7 @@ export interface HostedFields {
      *   return state.fields[key].isValid;
      * });
      */
-    getState(): any;
+    getState(): HostedFieldsState;
 
     /**
      * Programmatically focus a {@link module:braintree-web/hosted-fields-field field}.     *
